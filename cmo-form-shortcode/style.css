@@ -1,18 +1,76 @@
+/**
+ * Stylesheet for the CMO Form Shortcode
+ *
+ * @version 1.0
+ * @author Inggo Espinosa
+ */
+@import url('//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css');
+
 .cmo-form-group input[type=text],
 .cmo-form-group input[type=number],
 .cmo-form-group input[type=email],
-.cmo-form-group textarea {
+.cmo-form-group textarea,
+.cmo-form-group select {
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
     background-color: #eee;
     border: none;
     color: #999;
+    font-family: Arial, helvetica, sans-serif;
     font-size: 14px;
     padding: 16px;
     width: 100%;
 }
 
 .cmo-form-group {
+    overflow: hidden;
     margin: 0 0 20px;
+}
+
+.cmo-form-group input[type=submit] {
+    background: transparent;
+    border: 2px solid;
+    border-radius: 3px;
+    color: #ffcc00;
+    cursor: pointer;
+    float: right;
+    font-size: 20px;
+    line-height: 1.7;
+    padding: 6px 20px;
+    -webkit-transition: all .5s;
+    -o-transition: all .5s;
+    transition: all .5s;
+}
+
+.cmo-form-group input[type=submit]:hover {
+    background: #eee;
+    border-color: #eee;
+}
+
+.cmo-response {
+    margin-bottom: 20px;
+    padding: 16px;
+}
+
+.cmo-response p {
+    font-family: Arial, helvetica, sans-serif;
+    font-size: 14px;
+    margin: 0;
+}
+
+.cmo-response i {
+    margin: 10px 22px;
+    font-size: 2em;
+    vertical-align: middle;
+}
+
+.cmo-success {
+    color: #4F8A10;
+    background-color: #DFF2BF;
+}
+
+.cmo-error {
+    color: #D8000C;
+    background-color: #FFBABA;
 }

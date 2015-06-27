@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: CMO Form Shortcode
-Description: Adds the [cmo_form] shortcode to display the CMO form
+Description: Adds the [cmo_form] shortcode to display the CMO form and handles the response accordingly.
 Version:     1.0
 Author:      Inggo Espinosa
 Author URI:  http://nyo.me
@@ -17,7 +17,7 @@ defined('ABSPATH') or die();
 function cmo_form_init()
 {
     global $cmo_response;
-    $cmo_response_names = [
+    $cmo_response_names = array(
         'LocationReference',
         'SendQuotationEmail',
         'QuotationClientID',
@@ -71,7 +71,7 @@ function cmo_form_init()
         'Quantity',
         'Seats',
         'VehicleType',
-    ];
+    );
     foreach ($cmo_response_names as $key) {
         if (array_key_exists($key, $_POST)) {
             $cmo_response[$key] = filter_input(INPUT_POST, $key, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
@@ -95,10 +95,11 @@ function cmo_form_shortcode($atts)
         'action' => 'http://www.coachres.com/CMO_BelleVue/Client/Integration/Default.aspx',
         'vehicle_types' => 'AirExec,Car,Disability,Exec,Midi,Mini,Standard',
         'delimiter' => ',',
+        'success_message' => 'Your Quotation has been created!',
     ), $atts);
 
-    $full = $a['layout'] == 'full' ? true : false;
-    $vehicle_types = explode($a['delimiter'], $a['vehicle_types']);
+    $cmo_layout_full = $a['layout'] == 'full' ? true : false;
+    $cmo_vehicle_types = explode($a['delimiter'], $a['vehicle_types']);
 
     ob_start();
     include(sprintf("%s/cmo-form-view.php", dirname(__FILE__)));
@@ -109,6 +110,9 @@ function cmo_form_shortcode($atts)
 }
 add_shortcode('cmo_form', 'cmo_form_shortcode');
 
+/**
+ * Enqueue the stylesheet only if the shortcode is used
+ */
 function cmo_form_shortcode_styles()
 {
     global $post;
@@ -116,3 +120,4 @@ function cmo_form_shortcode_styles()
         wp_enqueue_style('cmo-form-style');
     }
 }
+add_action('wp_enqueue_scripts', 'cmo_form_shortcode_styles');

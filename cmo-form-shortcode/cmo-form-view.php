@@ -1,10 +1,32 @@
 <?php
+/**
+ * View file for the CMO Form Shortcode
+ *
+ * @author Inggo Espinosa
+ * @since  1.0
+ */
 defined('ABSPATH') or die();
 global $cmo_response;
 ?>
 <div class="cmo-form-container">
   <form name="frmDistinctive" class="cmo-form" method="post" action="<?=$a['action']?>">
-    <?php if ($full): ?>
+    <?php if ($cmo_response["Error"] != ""): ?>
+    <div class="cmo-response cmo-error">
+      <p>
+        <i class="fa fa-info-circle"></i>
+        <?=$cmo_response["Error"]?>
+      </p>
+    </div>
+    <?php endif; ?>
+    <?php if ($cmo_response["QuotationID"] != ""): ?>
+    <div class="cmo-response cmo-success">
+      <p>
+        <i class="fa fa-check"></i>
+        <?=$a["success_message"]?>
+      </p>
+    </div>
+    <?php endif; ?>
+    <?php if ($cmo_layout_full): ?>
     <div class="cmo-form-group cmo-radio-group">
       <label class="cmo-radio-group-heading">Send Quotation Email?</label>
       <label class="cmo-radio-label"><input type="radio" name="SendQuotationEmail" value="True" <?=$cmo_response['SendQuotationEmail'] == "True" ? 'checked':''?>> Yes</label>
@@ -23,7 +45,7 @@ global $cmo_response;
     <div class="cmo-form-group cmo-form-group-required">
       <input type="text" name="Firstname" placeholder="First Name" required value="<?=$cmo_response["Firstname"]?>">
     </div>
-    <?php if ($full): ?>
+    <?php if ($cmo_layout_full): ?>
     <div class="cmo-form-group">
       <input type="text" name="Salutation" placeholder="Salutation" value="<?=$cmo_response["Salutation"]?>">
     </div>
@@ -58,7 +80,7 @@ global $cmo_response;
     <div class="cmo-form-group cmo-form-group-required">
       <input type="email" name="Email" placeholder="Email Address" required value="<?=$cmo_response["Email"]?>">
     </div>
-    <?php if ($full): ?>
+    <?php if ($cmo_layout_full): ?>
     <div class="cmo-form-group">
       <input type="text" name="Description" placeholder="Quotation Request" value="<?=$cmo_response["Description"]?>">
     </div>
@@ -75,7 +97,7 @@ global $cmo_response;
     <div class="cmo-form-group cmo-form-group-required">
       <input type="text" name="Pickup" placeholder="Pickup Place" required value="<?=$cmo_response["Pickup"]?>">
     </div>
-    <?php if ($full): ?>
+    <?php if ($cmo_layout_full): ?>
     <div class="cmo-form-group">
       <input type="text" name="PickupLatitude" placeholder="Pickup Latitude" value="<?=$cmo_response["PickupLatitude"]?>">
     </div>
@@ -99,7 +121,7 @@ global $cmo_response;
     <div class="cmo-form-group cmo-form-group-required">
       <input type="text" name="Destination" placeholder="Destination" required value="<?=$cmo_response["Destination"]?>">
     </div>
-    <?php if ($full): ?>
+    <?php if ($cmo_layout_full): ?>
     <div class="cmo-form-group">
       <input type="text" name="DestinationLatitude" placeholder="Destination Latitude" value="<?=$cmo_response["DestinationLatitude"]?>">
     </div>
@@ -150,13 +172,13 @@ global $cmo_response;
       <input type="number" name="Quantity" placeholder="Quantity" min="0" step="1" required value="<?=$cmo_response["Quantity"]?>">
     </div>
     <div class="cmo-form-group cmo-form-group-required">
-      <input type="hidden" name="Seats" placeholder="Seats" min="0" step="1" required value="<?=$cmo_response["Seats"]?>">
+      <input type="number" name="Seats" placeholder="Seats" min="0" step="1" required value="<?=$cmo_response["Seats"]?>">
     </div>
     <div class="cmo-form-group cmo-select-group cmo-form-group-required">
       <select name="VehicleType" required>
         <option value="" disabled <?=$cmo_response["VehicleType"] == "" ? 'selected' : ''?>>Vehicle Type</option>
-        <?php foreach ($a['vehicle_types'] as $vehicle_type): ?>
-        <option value="<?=$vehicle_type?>"> <?=$cmo_response["VehicleType"] == $vehicle_type ? 'selected' : ''?>><?=$vehicle_type?></option>
+        <?php foreach ($cmo_vehicle_types as $cmo_vehicle_type): ?>
+        <option value="<?=$cmo_vehicle_type?>"> <?=$cmo_response["VehicleType"] == $cmo_vehicle_type ? 'selected' : ''?><?=$cmo_vehicle_type?></option>
         <?php endforeach; ?>
       </select>
     </div>
