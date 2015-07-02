@@ -2,7 +2,7 @@
 /*
 Plugin Name: CMO Form Shortcode
 Description: Adds the [cmo_form] shortcode to display the CMO form and handles the response accordingly.
-Version:     1.0
+Version:     1.0.1
 Author:      Inggo Espinosa
 Author URI:  http://nyo.me
 License:     MIT
@@ -18,6 +18,8 @@ function cmo_form_init()
 {
     global $cmo_response;
     $cmo_response_names = array(
+        'Error',
+        'QuotationID',
         'LocationReference',
         'SendQuotationEmail',
         'QuotationClientID',
@@ -74,7 +76,7 @@ function cmo_form_init()
     );
     foreach ($cmo_response_names as $key) {
         if (array_key_exists($key, $_POST)) {
-            $cmo_response[$key] = filter_input(INPUT_POST, $key, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+            $cmo_response[$key] = sanitize_text_field($_POST[$key]);
         } else {
             $cmo_response[$key] = '';
         }
