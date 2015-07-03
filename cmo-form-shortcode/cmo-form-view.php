@@ -178,7 +178,7 @@ global $cmo_response;
       <select name="VehicleType" required>
         <option value="" disabled <?=$cmo_response["VehicleType"] == "" ? 'selected' : ''?>>Vehicle Type</option>
         <?php foreach ($cmo_vehicle_types as $cmo_vehicle_type): ?>
-        <option value="<?=$cmo_vehicle_type?>"> <?=$cmo_response["VehicleType"] == $cmo_vehicle_type ? 'selected' : ''?><?=$cmo_vehicle_type?></option>
+        <option value="<?=$cmo_vehicle_type?>" <?=$cmo_response["VehicleType"] == $cmo_vehicle_type ? 'selected' : ''?>><?=$cmo_vehicle_type?></option>
         <?php endforeach; ?>
       </select>
     </div>
