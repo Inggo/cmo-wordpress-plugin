@@ -21,6 +21,7 @@
     font-size: 14px;
     padding: 16px;
     width: 100%;
+    min-height: 48px;
 }
 
 .cmo-form-group {
@@ -74,3 +75,20 @@
     color: #D8000C;
     background-color: #FFBABA;
 }
+
+@media screen and (min-width: 640px) {
+    .cmo-form-group {
+        padding: 0 0 0 175px;
+    }
+
+    .cmo-form-group > label:first-child {
+        float: left;
+        line-height: 48px;
+        margin: 0 0 0 -175px;
+    }
+
+    .cmo-radio-group {
+        line-height: 48px;
+    }
+}
+
