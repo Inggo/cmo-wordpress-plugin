@@ -2,7 +2,7 @@
 /*
 Plugin Name: CMO Form Shortcode
 Description: Adds the [cmo_form] shortcode to display the CMO form and handles the response accordingly.
-Version:     1.1
+Version:     1.2
 Author:      Inggo Espinosa
 Author URI:  http://nyo.me
 License:     MIT
@@ -98,15 +98,20 @@ function cmo_form_shortcode($atts)
         'layout' => 'minimum',
         'action' => 'http://www.coachres.com/CMO_BelleVue/Client/Integration/Default.aspx',
         'vehicle_types' => 'AirExec,Car,Disability,Exec,Midi,Mini,Standard',
+        'vehicle_values' => '',
         'delimiter' => ',',
         'success_message' => 'Your Quotation has been created!',
+        'view' => 'cmo-form-view.php',
     ), $atts);
 
     $cmo_layout_full = $a['layout'] == 'full' ? true : false;
     $cmo_vehicle_types = explode($a['delimiter'], $a['vehicle_types']);
+    $cmo_vehicle_values = $a['vehicle_values'] ?
+        explode($a['delimiter'], $a['vehicle_values']) :
+        $cmo_vehicle_types;
 
     ob_start();
-    include(sprintf("%s/cmo-form-view.php", dirname(__FILE__)));
+    include(sprintf("%s/%s", dirname(__FILE__), $a['view']));
     $form = ob_get_contents();
     ob_end_clean();
 
